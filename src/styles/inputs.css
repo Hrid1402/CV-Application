@@ -1,0 +1,58 @@
+.InputBlock{
+    background-color: rgb(245, 245, 245);
+    padding: 2rem;
+    border-radius: 2rem;
+    color: black;
+    width: 30%;
+}
+input{
+    background-color: white;
+    height: 2rem;
+    border: rgb(112, 162, 228) 1px solid;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    padding: 0 5px 0 .3125rem;
+}
+input:focus{
+    outline: none;
+    background-color: rgb(197, 197, 197);
+    border: rgb(59, 132, 226) 2px solid;
+}
+label{
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.dates{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.d1, .d2{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.infContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.labelInput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 5px 0 15px 0;
+}
+textarea{
+    width: 100%;
+    resize: none;
+    font-size: 16px;
+    padding: 0 5px 0 .3125rem;
+    outline: none;
+    border: rgb(112, 162, 228) 1px solid;
+    border-radius: 5px;
+}
