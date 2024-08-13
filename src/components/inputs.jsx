@@ -17,16 +17,16 @@ function TextInput({text, holder, type="text", handleChange}){
     )
 }
 
-export function GeneralInf({setFullName}){
+export function GeneralInf({setFullName, setEmail, setPhone, setAddress}){
 
   return (
     <div className='InputBlock'>
         <h1>General Information</h1>
         <div className='infContainer'>
             <TextInput text="Full Name" holder="Ex: Charles Bradley" handleChange={(e)=> setFullName(e.target.value)}></TextInput>
-            <TextInput text="Email" holder="Ex: CharlesB@email.com" type='email'></TextInput>
-            <TextInput text="Phone Number" holder="Ex: (251) 326-7838" type="phone"></TextInput>
-            <TextInput text="Address" holder="Ex: London, UK"></TextInput>
+            <TextInput text="Email" holder="Ex: CharlesB@email.com" type='email'handleChange={(e)=> setEmail(e.target.value)}></TextInput>
+            <TextInput text="Phone Number" holder="Ex: (251) 326-7838" type="phone" handleChange={(e)=> setPhone(e.target.value)}></TextInput>
+            <TextInput text="Address" holder="Ex: London, UK" handleChange={(e)=> setAddress(e.target.value)}></TextInput>
         </div>
     </div>
   )
@@ -70,16 +70,16 @@ export function ProfessionalInf(){
     )
 };
   
-export function CV({ name, email, phone, address }){
+export function CV({ fullName, email, phone, address }){
     
     return (
     <div className='CV'>
         <div className='top'>
-            <h3 className='Name'>{name}</h3>
+            <h3 className='Name'>{fullName}</h3>
             <div className='contact'>
-                <div><img src={emailIcon} alt="Email" /><p>josephine.meyers@mail.co.uk</p></div>
-                <div><img src={phoneIcon} alt="Phone" /><p>(251) 326-7838</p></div>
-                <div><img src={addressIcon} alt="Address" /><p>London, UK</p></div>
+                <div><img src={emailIcon} alt="Email" /><p>{email}</p></div>
+                <div><img src={phoneIcon} alt="Phone" /><p>{phone}</p></div>
+                <div><img src={addressIcon} alt="Address" /><p>{address }</p></div>
             </div>
         </div>
     </div>
