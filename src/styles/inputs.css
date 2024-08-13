@@ -56,3 +56,24 @@ textarea{
     border: rgb(112, 162, 228) 1px solid;
     border-radius: 5px;
 }
+.schoolBlock{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    background-color: #70a2e4;
+    border-radius: 5px;
+}
+.schoolBlock h3{
+    margin: .3125rem;
+}
+.schoolBlock button{
+    margin: .3125rem;
+}
+.infContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    padding: 1.5625rem;
+}

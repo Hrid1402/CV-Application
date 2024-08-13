@@ -4,8 +4,23 @@ import '../styles/CV.css'
 import emailIcon from '../assets/ICO_email.svg'
 import phoneIcon from '../assets/ICO_phone.svg'
 import addressIcon from '../assets/ICO_address.svg'
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-
+let schoolData = [
+    {
+        name: 'Greenfield College',
+        degree: 'MS in Data Analytics',
+        startDate: '01/01/2019',
+        endDate: '01/01/2021'
+    },
+    {
+        name: 'Other College',
+        degree: 'MS in Data Analytics',
+        startDate: '01/01/2019',
+        endDate: '01/01/2021'
+    },
+];
 
 function TextInput({text, holder, type="text", handleChange}){
     
@@ -31,22 +46,74 @@ export function GeneralInf({setFullName, setEmail, setPhone, setAddress}){
     </div>
   )
 };
+function EduBlock(name, key, onDelete){
+    return(
+        <div key={key} className='schoolBlock'>
+            <button onClick={() => onDelete(name)}>Delete</button>
+            <h3>{name}</h3>
+        </div>
+    )
+}
+function AddEdu({setShowEdu, schoolData, setSchoolData}){
+    return (
+        <div className='InputBlock'>
+            <div className='infContainer'>
+                <TextInput text="School Name" holder="Ex: Greenfield College"></TextInput>
+                <TextInput text="Degree" holder="Ex: MS in Data Analytics"></TextInput>
+                <div className='dates'>
+                      <div className='d1'>
+                          <TextInput text="Start Date" holder="Ex: 01/01/2019"></TextInput>
+                      </div>
+                      <div className='d2'>
+                          <TextInput text="End Date" holder="Ex: 01/01/2021"></TextInput>
+                      </div>
+                </div>
+                <button onClick={
+                    () => {setShowEdu(false);}
+                }>Cancel</button>
+                
+                <button onClick={
+                    () => {
+                        setSchoolData([...schoolData, {
+                            name: document.querySelector('input[placeholder="Ex: Greenfield College"]').value,
+                            degree: document.querySelector('input[placeholder="Ex: MS in Data Analytics"]').value,
+                            startDate: document.querySelector('input[placeholder="Ex: 01/01/2019"]').value,
+                            endDate: document.querySelector('input[placeholder="Ex: 01/01/2021"]').value
+                        }]);
+                        setShowEdu(false);
+                    }
+                }>Save</button>
+            </div>
+        </div>
+      )
+}
 
 export function EducationInf(){
+    const [showEdu, setShowEdu] = useState(false);
+    const [schoolData, setSchoolData] = useState([{
+        name: 'Greenfield College',
+        degree: 'MS in Data Analytics',
+        startDate: '01/01/2019',
+        endDate: '01/01/2021'
+    },
+    {
+        name: 'Other College',
+        degree: 'MS in Data Analytics',
+        startDate: '01/01/2019',
+        endDate: '01/01/2021'
+    }]);
+    const deleteSchool = (nameToDelete) => {
+        setSchoolData(schoolData.filter((school) => school.name !== nameToDelete));
+    };
+    
     return (
       <div className='InputBlock'>
           <h1>Education Information</h1>
           <div className='infContainer'>
-              <TextInput text="School Name" holder="Ex: Greenfield College"></TextInput>
-              <TextInput text="Degree" holder="Ex: MS in Data Analytics"></TextInput>
-              <div className='dates'>
-                    <div className='d1'>
-                        <TextInput text="Start Date" holder="Ex: 01/01/2019"></TextInput>
-                    </div>
-                    <div className='d2'>
-                        <TextInput text="End Date" holder="Ex: 01/01/2021"></TextInput>
-                    </div>
-              </div>
+            {
+                showEdu == true ? ( <AddEdu setShowEdu={setShowEdu} schoolData={schoolData} setSchoolData={setSchoolData}/>  ): <> {schoolData.map((school) => EduBlock(school.name, uuidv4(), deleteSchool)) }<button onClick={() => setShowEdu(true)}>Add</button> </>
+            }
+            
           </div>
       </div>
     )
@@ -69,7 +136,19 @@ export function ProfessionalInf(){
       </div>
     )
 };
-  
+function SchoolContentBlock({name, degree, startDate, endDate}){
+    return (
+    <>
+        <div>
+            <p>{startDate} - {endDate}</p>
+            <h5>{name}</h5>
+        </div>
+            <p className='Degree'>{degree}</p>
+        
+        
+    </>
+    )
+}
 export function CV({ fullName, email, phone, address }){
     
     return (
@@ -80,6 +159,13 @@ export function CV({ fullName, email, phone, address }){
                 <div><img src={emailIcon} alt="Email" /><p>{email}</p></div>
                 <div><img src={phoneIcon} alt="Phone" /><p>{phone}</p></div>
                 <div><img src={addressIcon} alt="Address" /><p>{address }</p></div>
+            </div>
+        </div>
+        <div className='Education'>
+            <h4>Education</h4>
+            <div className='schoolContent'>
+                <div className='color'></div>
+                <SchoolContentBlock name={"UNIVERSIDAD UPAO"} degree={"COMPUTACIÓN Y SISTEMAS"} startDate={"2022"} endDate={"2028"}/>
             </div>
         </div>
     </div>
