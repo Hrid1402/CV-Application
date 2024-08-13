@@ -88,20 +88,9 @@ function AddEdu({setShowEdu, schoolData, setSchoolData}){
       )
 }
 
-export function EducationInf(){
+export function EducationInf({schoolData, setSchoolData}){
     const [showEdu, setShowEdu] = useState(false);
-    const [schoolData, setSchoolData] = useState([{
-        name: 'Greenfield College',
-        degree: 'MS in Data Analytics',
-        startDate: '01/01/2019',
-        endDate: '01/01/2021'
-    },
-    {
-        name: 'Other College',
-        degree: 'MS in Data Analytics',
-        startDate: '01/01/2019',
-        endDate: '01/01/2021'
-    }]);
+    
     const deleteSchool = (nameToDelete) => {
         setSchoolData(schoolData.filter((school) => school.name !== nameToDelete));
     };
@@ -149,7 +138,7 @@ function SchoolContentBlock({name, degree, startDate, endDate}){
     </>
     )
 }
-export function CV({ fullName, email, phone, address }){
+export function CV({ fullName, email, phone, address, schoolData}){
     
     return (
     <div className='CV'>
@@ -163,10 +152,16 @@ export function CV({ fullName, email, phone, address }){
         </div>
         <div className='Education'>
             <h4>Education</h4>
-            <div className='schoolContent'>
-                <div className='color'></div>
-                <SchoolContentBlock name={"UNIVERSIDAD UPAO"} degree={"COMPUTACIÓN Y SISTEMAS"} startDate={"2022"} endDate={"2028"}/>
-            </div>
+            {
+                schoolData.map(
+                    (school) => <div className='schoolContent'>
+                    <div className='color'>
+                        </div> <SchoolContentBlock name={school.name} degree={school.degree} startDate={school.startDate} endDate={school.endDate} />  
+                    </div>
+                )
+            }
+            
+            
         </div>
     </div>
     )
