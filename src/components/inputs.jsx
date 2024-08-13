@@ -7,21 +7,6 @@ import addressIcon from '../assets/ICO_address.svg'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
-let schoolData = [
-    {
-        name: 'Greenfield College',
-        degree: 'MS in Data Analytics',
-        startDate: '01/01/2019',
-        endDate: '01/01/2021'
-    },
-    {
-        name: 'Other College',
-        degree: 'MS in Data Analytics',
-        startDate: '01/01/2019',
-        endDate: '01/01/2021'
-    },
-];
-
 function TextInput({text, holder, type="text", handleChange}){
     
     return (
@@ -47,6 +32,14 @@ export function GeneralInf({setFullName, setEmail, setPhone, setAddress}){
   )
 };
 function EduBlock(name, key, onDelete){
+    return(
+        <div key={key} className='schoolBlock'>
+            <button onClick={() => onDelete(name)}>Delete</button>
+            <h3>{name}</h3>
+        </div>
+    )
+}
+function ProfBlock(name, key, onDelete){
     return(
         <div key={key} className='schoolBlock'>
             <button onClick={() => onDelete(name)}>Delete</button>
@@ -87,6 +80,31 @@ function AddEdu({setShowEdu, schoolData, setSchoolData}){
         </div>
       )
 }
+function AddProf({setShowProf, profData, setProfData}){
+    return(
+        <div className='InputBlock'>
+              <TextInput text="Company Name" holder="Ex: Tech Innovations Inc"></TextInput>
+              <TextInput text="Position Title" holder="Ex: Software Developer"></TextInput>
+              <div className='labelInput'>
+                <label>Main Responsibilities</label>
+                <textarea  rows="5" cols="55" placeholder='Ex: Developed and maintained web applications, collaborated with cross-functional teams, and implemented new features.'></textarea>
+              </div>
+              <TextInput text="Date" holder="Ex: June 2020 - Present"></TextInput>
+              <button onClick={()=>setShowProf(false)}>Cancel</button>
+              <button onClick={()=>{
+                    setProfData([...profData, {
+                        company: document.querySelector('input[placeholder="Ex: Tech Innovations Inc"]').value,
+                        position: document.querySelector('input[placeholder="Ex: Software Developer"]').value,
+                        responsibilities: document.querySelector('textarea').value,
+                        date: document.querySelector('input[placeholder="Ex: June 2020 - Present"]').value
+                    }]);
+                    setShowProf(false);
+                
+
+              }}>Add</button>
+        </div>
+    )
+}
 
 export function EducationInf({schoolData, setSchoolData}){
     const [showEdu, setShowEdu] = useState(false);
@@ -108,37 +126,54 @@ export function EducationInf({schoolData, setSchoolData}){
     )
 };
 
-export function ProfessionalInf(){
+export function ProfessionalInf({profData, setProfData}){
+    const [showProf, setShowProf] = useState(false);
+
+    const deleteProfessional = (nameToDelete) => {
+        setProfData(profData.filter((prof) => prof.company !== nameToDelete));
+    };
+
     return (
       <div className='InputBlock'>
           <h1>Professional Information</h1>
           <div className='infContainer'>
-              <TextInput text="Company Name" holder="Ex: Tech Innovations Inc"></TextInput>
-              <TextInput text="Position Title" holder="Ex: Software Developer"></TextInput>
-              <div className='labelInput'>
-                <label>Main Responsibilities</label>
-                <textarea  rows="5" cols="55" placeholder='Ex: Developed and maintained web applications, collaborated with cross-functional teams, and implemented new features.'></textarea>
-              </div>
-              
-              <TextInput text="Date" holder="Ex: June 2020 - Present    "></TextInput>
+
+            {
+                showProf == true ? ( <AddProf setShowProf={setShowProf} profData={profData} setProfData={setProfData}/>  ): <> {profData.map((prof) => ProfBlock(prof.company, uuidv4(), deleteProfessional)) }<button onClick={() => setShowProf(true)}>Add</button> </>
+            }
+
           </div>
       </div>
     )
 };
+
 function SchoolContentBlock({name, degree, startDate, endDate}){
     return (
     <>
-        <div>
+        <div className='l'>
             <p>{startDate} - {endDate}</p>
             <h5>{name}</h5>
         </div>
             <p className='Degree'>{degree}</p>
-        
-        
     </>
     )
 }
-export function CV({ fullName, email, phone, address, schoolData}){
+function ProfContentBlock({company, position, responsibilities, date}){
+    return (
+    <>
+        <div className='l'>
+            <h5>{company}</h5>
+            <p>{date}</p>
+        </div>
+        <div className='r'>
+            <p className='position'>{position}</p>
+            <p className='responsibilities'>{responsibilities}</p>
+        </div>
+            
+    </>
+    )
+}
+export function CV({ fullName, email, phone, address, schoolData, profData}){
     
     return (
     <div className='CV'>
@@ -160,9 +195,20 @@ export function CV({ fullName, email, phone, address, schoolData}){
                     </div>
                 )
             }
-            
-            
         </div>
+        <div className='Experience'>
+            <h4>Experience</h4>
+            {
+                profData.map(
+                    (prof) => <div className='profContent'>
+                    <div className='color'>
+                        </div> <ProfContentBlock company={prof.company} position={prof.position} responsibilities={prof.responsibilities} date={prof.date} />  
+                    </div>
+                )
+
+            }
+        </div>
+
     </div>
     )
 };

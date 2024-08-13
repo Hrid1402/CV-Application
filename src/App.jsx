@@ -15,7 +15,15 @@ function App() {
     degree: 'MSc in Data Science',
     startDate: '09/01/2018',
     endDate: '06/01/2020'
-}]);
+  }]);
+
+  const [profData, setProfData] = useState([{
+    company: "Tech Innovations",
+    position: "Software Developer",
+    responsibilities: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum aspernatur vel illo cum molestiae. Voluptates expedita incidunt a consequatur quia quis eligendi blanditiis tenetur quaerat!",
+    date: "June 2020 - Present"
+  }]);
+
 
   return (
     <>
@@ -24,9 +32,9 @@ function App() {
         <div className='allBlocks'>
           <GeneralInf setFullName={setFullName} setEmail={setEmail} setPhone={setPhone} setAddress={setAddress}/>
           <EducationInf schoolData={schoolData} setSchoolData={setSchoolData}/>
-          <ProfessionalInf/>
+          <ProfessionalInf profData={profData} setProfData={setProfData}/>
         </div>
-          <CV fullName={fullName} email={email} phone={phone} address={address} schoolData={schoolData}/>
+          <CV fullName={fullName} email={email} phone={phone} address={address} schoolData={schoolData} profData={profData}/>
       </main>
     </>
   )
