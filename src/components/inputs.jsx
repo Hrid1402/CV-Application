@@ -5,13 +5,10 @@ import emailIcon from '../assets/ICO_email.svg'
 import phoneIcon from '../assets/ICO_phone.svg'
 import addressIcon from '../assets/ICO_address.svg'
 
-let curFullName = '';
-function TextInput({text, holder, type="text"}){
-    const [userText, setUserText] = React.useState('');
-    function handleChange(e) {
-        setUserText(e.target.value);
-        console.log(userText);
-    }
+
+
+function TextInput({text, holder, type="text", handleChange}){
+    
     return (
         <div className='labelInput'>
             <label>{text}</label>
@@ -19,13 +16,14 @@ function TextInput({text, holder, type="text"}){
         </div>
     )
 }
-export function GeneralInf(){
+
+export function GeneralInf({setFullName}){
 
   return (
     <div className='InputBlock'>
         <h1>General Information</h1>
         <div className='infContainer'>
-            <TextInput text="Full Name" holder="Ex: Charles Bradley"></TextInput>
+            <TextInput text="Full Name" holder="Ex: Charles Bradley" handleChange={(e)=> setFullName(e.target.value)}></TextInput>
             <TextInput text="Email" holder="Ex: CharlesB@email.com" type='email'></TextInput>
             <TextInput text="Phone Number" holder="Ex: (251) 326-7838" type="phone"></TextInput>
             <TextInput text="Address" holder="Ex: London, UK"></TextInput>
@@ -72,17 +70,19 @@ export function ProfessionalInf(){
     )
 };
   
-export function CV(){
+export function CV({ name, email, phone, address }){
+    
     return (
     <div className='CV'>
         <div className='top'>
-            <h3 className='Name'>{curFullName}</h3>
+            <h3 className='Name'>{name}</h3>
             <div className='contact'>
                 <div><img src={emailIcon} alt="Email" /><p>josephine.meyers@mail.co.uk</p></div>
                 <div><img src={phoneIcon} alt="Phone" /><p>(251) 326-7838</p></div>
                 <div><img src={addressIcon} alt="Address" /><p>London, UK</p></div>
             </div>
         </div>
-    </div>)
+    </div>
+    )
 };
 
