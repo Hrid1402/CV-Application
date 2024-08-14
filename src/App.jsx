@@ -3,6 +3,7 @@ import React from 'react'
 import pageIcon from './assets/icon.png'
 import './styles/App.css'
 import {GeneralInf, EducationInf, ProfessionalInf, CV} from './components/inputs'
+import { ButtonPDF } from './components/pdf'
 
 function App() {
   const [fullName, setFullName] = React.useState('Charles Bradley');
@@ -33,6 +34,7 @@ function App() {
           <GeneralInf setFullName={setFullName} setEmail={setEmail} setPhone={setPhone} setAddress={setAddress}/>
           <EducationInf schoolData={schoolData} setSchoolData={setSchoolData}/>
           <ProfessionalInf profData={profData} setProfData={setProfData}/>
+          <ButtonPDF/>
         </div>
           <CV fullName={fullName} email={email} phone={phone} address={address} schoolData={schoolData} profData={profData}/>
       </main>

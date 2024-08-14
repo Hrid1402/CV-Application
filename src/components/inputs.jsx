@@ -189,7 +189,7 @@ export function CV({ fullName, email, phone, address, schoolData, profData}){
             <h4>Education</h4>
             {
                 schoolData.map(
-                    (school) => <div className='schoolContent'>
+                    (school) => <div className='schoolContent' key={uuidv4()}>
                     <div className='color'>
                         </div> <SchoolContentBlock name={school.name} degree={school.degree} startDate={school.startDate} endDate={school.endDate} />  
                     </div>
@@ -200,7 +200,7 @@ export function CV({ fullName, email, phone, address, schoolData, profData}){
             <h4>Experience</h4>
             {
                 profData.map(
-                    (prof) => <div className='profContent'>
+                    (prof) => <div className='profContent' key={uuidv4()}>
                     <div className='color'>
                         </div> <ProfContentBlock company={prof.company} position={prof.position} responsibilities={prof.responsibilities} date={prof.date} />  
                     </div>
