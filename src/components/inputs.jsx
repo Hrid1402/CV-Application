@@ -4,6 +4,8 @@ import '../styles/CV.css'
 import emailIcon from '../assets/ICO_email.svg'
 import phoneIcon from '../assets/ICO_phone.svg'
 import addressIcon from '../assets/ICO_address.svg'
+import deleteICON from '../assets/delete.svg'
+import addICON from '../assets/add.svg'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 
@@ -34,7 +36,7 @@ export function GeneralInf({setFullName, setEmail, setPhone, setAddress}){
 function EduBlock(name, key, onDelete){
     return(
         <div key={key} className='schoolBlock'>
-            <button onClick={() => onDelete(name)}>Delete</button>
+            <img onClick={() => onDelete(name)} src={deleteICON} alt="delete" height={"45px"} />
             <h3>{name}</h3>
         </div>
     )
@@ -42,7 +44,7 @@ function EduBlock(name, key, onDelete){
 function ProfBlock(name, key, onDelete){
     return(
         <div key={key} className='schoolBlock'>
-            <button onClick={() => onDelete(name)}>Delete</button>
+            <img onClick={() => onDelete(name)} src={deleteICON} alt="delete" height={"45px"} />
             <h3>{name}</h3>
         </div>
     )
@@ -61,21 +63,24 @@ function AddEdu({setShowEdu, schoolData, setSchoolData}){
                           <TextInput text="End Date" holder="Ex: 01/01/2021"></TextInput>
                       </div>
                 </div>
-                <button onClick={
-                    () => {setShowEdu(false);}
-                }>Cancel</button>
+                <div className='BTNS'>
+                    <button onClick={
+                        () => {setShowEdu(false);}
+                    }>Cancel</button>
+                    
+                    <button onClick={
+                        () => {
+                            setSchoolData([...schoolData, {
+                                name: document.querySelector('input[placeholder="Ex: Greenfield College"]').value,
+                                degree: document.querySelector('input[placeholder="Ex: MS in Data Analytics"]').value,
+                                startDate: document.querySelector('input[placeholder="Ex: 01/01/2019"]').value,
+                                endDate: document.querySelector('input[placeholder="Ex: 01/01/2021"]').value
+                            }]);
+                            setShowEdu(false);
+                        }
+                    }>Save</button>
+                </div>
                 
-                <button onClick={
-                    () => {
-                        setSchoolData([...schoolData, {
-                            name: document.querySelector('input[placeholder="Ex: Greenfield College"]').value,
-                            degree: document.querySelector('input[placeholder="Ex: MS in Data Analytics"]').value,
-                            startDate: document.querySelector('input[placeholder="Ex: 01/01/2019"]').value,
-                            endDate: document.querySelector('input[placeholder="Ex: 01/01/2021"]').value
-                        }]);
-                        setShowEdu(false);
-                    }
-                }>Save</button>
             </div>
         </div>
       )
@@ -90,18 +95,21 @@ function AddProf({setShowProf, profData, setProfData}){
                 <textarea  rows="5" cols="55" placeholder='Ex: Developed and maintained web applications, collaborated with cross-functional teams, and implemented new features.'></textarea>
               </div>
               <TextInput text="Date" holder="Ex: June 2020 - Present"></TextInput>
-              <button onClick={()=>setShowProf(false)}>Cancel</button>
-              <button onClick={()=>{
-                    setProfData([...profData, {
-                        company: document.querySelector('input[placeholder="Ex: Tech Innovations Inc"]').value,
-                        position: document.querySelector('input[placeholder="Ex: Software Developer"]').value,
-                        responsibilities: document.querySelector('textarea').value,
-                        date: document.querySelector('input[placeholder="Ex: June 2020 - Present"]').value
-                    }]);
-                    setShowProf(false);
-                
+              <div className='BTNS'>
+                <button onClick={()=>setShowProf(false)}>Cancel</button>
+                <button onClick={()=>{
+                        setProfData([...profData, {
+                            company: document.querySelector('input[placeholder="Ex: Tech Innovations Inc"]').value,
+                            position: document.querySelector('input[placeholder="Ex: Software Developer"]').value,
+                            responsibilities: document.querySelector('textarea').value,
+                            date: document.querySelector('input[placeholder="Ex: June 2020 - Present"]').value
+                        }]);
+                        setShowProf(false);
+                    
 
-              }}>Add</button>
+                }}>Add</button>
+              </div>
+              
         </div>
     )
 }
@@ -118,7 +126,7 @@ export function EducationInf({schoolData, setSchoolData}){
           <h1>Education Information</h1>
           <div className='infContainer'>
             {
-                showEdu == true ? ( <AddEdu setShowEdu={setShowEdu} schoolData={schoolData} setSchoolData={setSchoolData}/>  ): <> {schoolData.map((school) => EduBlock(school.name, uuidv4(), deleteSchool)) }<button onClick={() => setShowEdu(true)}>Add</button> </>
+                showEdu == true ? ( <AddEdu setShowEdu={setShowEdu} schoolData={schoolData} setSchoolData={setSchoolData}/>  ): <> {schoolData.map((school) => EduBlock(school.name, uuidv4(), deleteSchool)) }<button onClick={() => setShowEdu(true)} className='addBTN'>Add <img src={addICON}/></button> </>
             }
             
           </div>
@@ -139,7 +147,7 @@ export function ProfessionalInf({profData, setProfData}){
           <div className='infContainer'>
 
             {
-                showProf == true ? ( <AddProf setShowProf={setShowProf} profData={profData} setProfData={setProfData}/>  ): <> {profData.map((prof) => ProfBlock(prof.company, uuidv4(), deleteProfessional)) }<button onClick={() => setShowProf(true)}>Add</button> </>
+                showProf == true ? ( <AddProf setShowProf={setShowProf} profData={profData} setProfData={setProfData}/>  ): <> {profData.map((prof) => ProfBlock(prof.company, uuidv4(), deleteProfessional)) }<button onClick={() => setShowProf(true)}  className='addBTN'>Add <img src={addICON}></img></button> </>
             }
 
           </div>

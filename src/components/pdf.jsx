@@ -1,6 +1,7 @@
 import React from 'react'
 import html2pdf from 'html2pdf.js';
 import '../styles/App.css'
+import downloadICON from '../assets/download.svg'
 const generatePDF = () => {
     // Get the CV container element
     const element = document.querySelector('.CV');
@@ -20,6 +21,6 @@ const generatePDF = () => {
   };
 export function ButtonPDF(){
     return(
-        <button onClick={generatePDF}>Download PDF</button>
+        <button  className='downloadBTN'  onClick={generatePDF}>Download CV<img src={downloadICON}/></button>
     )
 }
